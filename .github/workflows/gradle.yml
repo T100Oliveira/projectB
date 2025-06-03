@@ -1,0 +1,29 @@
+name: Java CI com Gradle
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonar o repositório
+      uses: actions/checkout@v3
+
+    - name: Configurar JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin' # Pode ser 'zulu', 'corretto', etc.
+        java-version: '17'      # Altere conforme sua versão (ex: '11', '21'...)
+
+    - name: Permitir execução do Gradle Wrapper
+      run: chmod +x gradlew
+
+    - name: Construir com Gradle
+      run: ./gradlew build
+
